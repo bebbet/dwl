@@ -1,3 +1,33 @@
+# Requirements
+- DWL (as below)
+- swaylock-effects
+- xdg-desktop-portal 
+  - xdg-desktop-portal-wlr
+- ttf-jetbrains-mono-nerd (nerdfont to use icons/glyphs in statusbar)
+- copy scripts from `scripts/` to `~/.scripts/`
+- slstatus
+- mako
+- swaybg
+- foot
+  - copy `configs/foot.ini` to `~/.config/foot/foot.ini`
+
+`/usr/share/wayland-sessions/dwl.desktop` 
+```
+[Desktop Entry]
+Name=dwl user
+Comment=DWL
+Exec=~/startdwl
+Type=Application
+DesktopNames=dwl;wlroots
+```
+`~/startdwl`
+```
+slstatus -s | dwl -s 'mako & /usr/lib/xdg-desktop-portal-wlr & swaybg -m fill -i ~/wallpaper.png' &>> /tmp/dwl.output
+```
+
+# applied patches
+- bar.patch
+
 # dwl - dwm for Wayland
 
 Join us on our IRC channel: [#dwl on Libera Chat]  

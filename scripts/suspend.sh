@@ -1,4 +1,3 @@
-date -Isec >> /tmp/suspend
 swaylock \
         --screenshots \
         --clock \

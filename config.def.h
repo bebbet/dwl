@@ -130,11 +130,13 @@ static const char *menucmd[] = { "wofi", "--show", "drun", NULL };
 static const char *up_vol[]   = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%",   NULL };
 static const char *down_vol[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%",   NULL };
 static const char *mute_vol[] = { "pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
-static const char *lockscreen[] = { "swaylock", NULL };
-static const char *hibernate[] = { "/bin/sh","-c","'swaylock & systemctl suspend'", NULL };
+static const char *lockscreen[] = { "/bin/sh", "-c", "~/.scripts/lock.sh", NULL };
 static const char *brightup[] = { "brightnessctl", "-d", "intel_backlight", "s", "10%+", NULL };
 static const char *brightdown[] = { "brightnessctl", "-d", "intel_backlight", "s", "10%-", NULL };
 static const char *screenshot[] = { "/bin/sh", "-c", "~/.scripts/screenshot.sh", NULL };
+static const char *suspend[] = { "/bin/sh", "-c", "~/.scripts/suspend.sh", NULL };
+static const char *filemanager[] = { "thunar", NULL };
+static const char *runmenu[] = { "wmenu-run", "-l", "5", NULL };
 
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
@@ -164,13 +166,15 @@ static const Key keys[] = {
 	{ MODKEY|WLR_MODIFIER_SHIFT,            XKB_KEY_less,        tagmon,           {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT,            XKB_KEY_greater,     tagmon,           {.i = WLR_DIRECTION_RIGHT} },
 	{ WLR_MODIFIER_LOGO,                    XKB_KEY_l,           spawn,            {.v = lockscreen} },
-	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT, XKB_KEY_l,           spawn,            {.v = hibernate} },
-	{ 0,              XKB_KEY_XF86AudioMute,  		             spawn,            {.v = mute_vol } },
-	{ 0,              XKB_KEY_XF86AudioLowerVolume,              spawn,            {.v = down_vol } },
-	{ 0,              XKB_KEY_XF86AudioRaiseVolume,              spawn,            {.v = up_vol } },
-	{ 0,              XKB_KEY_XF86MonBrightnessDown,             spawn,            {.v = brightdown } },
-	{ 0,              XKB_KEY_XF86MonBrightnessUp,               spawn,            {.v = brightup } },
-	{ 0,              XKB_KEY_Print,                             spawn,            {.v = screenshot } },
+	{ WLR_MODIFIER_LOGO,                    XKB_KEY_e,           spawn,            {.v = filemanager} },
+	{ WLR_MODIFIER_LOGO,                    XKB_KEY_r,           spawn,            {.v = runmenu} },
+	{ WLR_MODIFIER_LOGO|WLR_MODIFIER_SHIFT, XKB_KEY_L,           spawn,            {.v = suspend} },
+	{ 0,              XKB_KEY_XF86AudioMute,  		             spawn,            {.v = mute_vol} },
+	{ 0,              XKB_KEY_XF86AudioLowerVolume,              spawn,            {.v = down_vol} },
+	{ 0,              XKB_KEY_XF86AudioRaiseVolume,              spawn,            {.v = up_vol} },
+	{ 0,              XKB_KEY_XF86MonBrightnessDown,             spawn,            {.v = brightdown} },
+	{ 0,              XKB_KEY_XF86MonBrightnessUp,               spawn,            {.v = brightup} },
+	{ 0,              XKB_KEY_Print,                             spawn,            {.v = screenshot} },
 	
 	TAGKEYS(          XKB_KEY_1, XKB_KEY_exclam,                     0), 
 	TAGKEYS(          XKB_KEY_2, XKB_KEY_at,                         1),
